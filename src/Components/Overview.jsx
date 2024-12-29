@@ -99,13 +99,13 @@ export default function Overview({ className = "" }) {
 
     return (
         <section className="w-full flex flex-col gap-2 grow">
-            <div className={`grid bg-primary grid-cols-8 min-h-[120px] gap-2 p-2 rounded-lg w-full ${className}`}>
+            <div className={`grid bg-primary grid-cols-8 min-h-[120px]  gap-2 p-2 rounded-lg w-full ${className}`}>
                 {/* Income */}
-                <div className="bg-success rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
-                    <img className="w-[30%] md:w-[20%]" src="https://cdn.iconscout.com/icon/premium/png-512-thumb/income-1474500-1249736.png?f=webp&w=512" />
+                <div className="bg-success rounded-lg items-center gap-1 justify-center col-span-4 md:col-span-2 flex flex-col md:flex-row">
+                    <img className="w-[15%] md:w-[20%]" src="https://cdn.iconscout.com/icon/premium/png-512-thumb/income-1474500-1249736.png?f=webp&w=512" />
                     <div className="flex flex-col items-center text-center justify-center">
                         <p className="font-bold hidden xs:block">Income</p>
-                        <pre className="w-[90px] whitespace-pre-wrap break-words">
+                        <pre className="w-[90px] text-xs md:text-sm whitespace-pre-wrap break-words">
                             {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(
                                 transactions.reduce((acc, t) => acc + t.income, 0)
                             )}
@@ -114,11 +114,11 @@ export default function Overview({ className = "" }) {
                 </div>
 
                 {/* Expenses */}
-                <div className="bg-error rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
-                    <img className="w-[30%] md:w-[20%]" src="https://cdn.iconscout.com/icon/premium/png-512-thumb/expenses-6192559-5150646.png?f=webp&w=512" />
+                <div className="bg-error rounded-lg items-center gap-1 justify-center col-span-4 md:col-span-2 flex flex-col md:flex-row">
+                    <img className="w-[15%] md:w-[20%]" src="https://cdn.iconscout.com/icon/premium/png-512-thumb/expenses-6192559-5150646.png?f=webp&w=512" />
                     <div className="flex flex-col items-center text-center justify-center">
                         <p className="font-bold hidden xs:block">Expenses</p>
-                        <pre className="w-[90px] whitespace-pre-wrap break-words">
+                        <pre className="w-[90px] text-xs md:text-sm whitespace-pre-wrap break-words">
                             {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(
                                 transactions.reduce((acc, t) => acc + t.expenses, 0)
                             )}
@@ -127,11 +127,11 @@ export default function Overview({ className = "" }) {
                 </div>
 
                 {/* Total balance */}
-                <div className="bg-info rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
-                    <img className="w-[30%] md:w-[20%]" src="https://cdn.iconscout.com/icon/premium/png-512-thumb/money-bag-rupiah-1754554-1491544.png?f=webp&w=512" />
+                <div className="bg-info rounded-lg items-center gap-1 justify-center col-span-4 md:col-span-2 flex flex-col md:flex-row">
+                    <img className="w-[15%] md:w-[20%]" src="https://cdn.iconscout.com/icon/premium/png-512-thumb/money-bag-rupiah-1754554-1491544.png?f=webp&w=512" />
                     <div className="flex flex-col items-center text-center justify-center">
                         <p className="font-bold hidden xs:block">Saving</p>
-                        <pre className="w-[90px] whitespace-pre-wrap break-words">
+                        <pre className="w-[90px] text-xs md:text-sm whitespace-pre-wrap break-words">
                             {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(
                                 transactions.reduce((acc, t) => acc + t.income - t.expenses, 0)
                             )}
@@ -140,9 +140,9 @@ export default function Overview({ className = "" }) {
                 </div>
                 
                 {/* Add transaction */}
-                <div className="bg-warning rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
-                    <button className="btn btn-circle btn-ghost absolute mb-0 xs:mb-8" onClick={() => document.getElementById('my_modal_4').showModal()}>
-                        <img src="https://img.icons8.com/?size=100&id=1501&format=png&color=000000" />
+                <div className="bg-warning rounded-lg items-center gap-1 justify-center col-span-4 md:col-span-2 flex flex-col md:flex-row">
+                    <button className="btn btn-circle bg-transparent border-transparent hover:bg-transparent hover:border-transparent" onClick={() => document.getElementById('my_modal_4').showModal()}>
+                        <img className="w-[55%] md:w-[90%]" src="https://img.icons8.com/?size=100&id=1501&format=png&color=000000" />
                         <p className="font-bold hidden xs:block">ADD</p>
                     </button>
 
@@ -204,7 +204,7 @@ export default function Overview({ className = "" }) {
             <div className="w-full h-[250px]">
                 {/* Table header */}
                 <div className="flex w-full gap-2 items-center p-3 justify-between">
-                    <p className="font-bold badge badge-primary">List of Transactions</p>
+                    <p className="font-bold badge badge-sm xs:badge-md badge-primary">List of Transactions</p>
                     <select
                         value={sortOption}
                         onChange={handleSortChange}

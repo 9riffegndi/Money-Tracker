@@ -55,9 +55,9 @@ export default function Records() {
                 </select>
             </div>
 
-            <div className="bg-primary w-full p-2 min-h-[100px]  rounded-lg flex-col flex gap-2 justify-start items-start">
-                <p className="text-md md:text-[1.5rem] font-extrabold">Ready to take control of your finances today?</p>
-                <p>With <span className="font-extrabold">CashFlow</span>, Take Charge of Your Money and Achieve Your Dreams</p>
+            <div className="bg-primary w-full p-2 h-max md:min-h-[120px]  rounded-lg flex-col flex gap-2 justify-start items-start">
+                <p className="text-xs md:text-2xl font-extrabold">Ready to take control of your finances today?</p>
+                <p className="text-xs md:text-lg">With <span className="font-extrabold">CashFlow</span>, Take Charge of Your Money and Achieve Your Dreams</p>
             </div>
 
             <Overview />
