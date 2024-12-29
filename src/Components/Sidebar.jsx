@@ -14,7 +14,7 @@ export default function Sidebar({ className='' }) {
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
                 
-                <ul className="menu bg-base-200  rounded-tr-2xl h-screen rounded-br-2xl text-base-content p-0 w-64 ">
+                <ul className="menu bg-base-200   h-screen  text-base-content p-0 w-64 ">
                 {/* Sidebar content here */}
                 <Link className="p-3 hover:bg-slate-400" to="/">Records</Link>
                 <Link className="p-3 hover:bg-slate-400" to="/analytics">Analytics</Link>

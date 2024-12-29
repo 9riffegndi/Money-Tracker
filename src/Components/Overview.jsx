@@ -22,6 +22,7 @@ export default function Overview({ className = "" }) {
         e.preventDefault();
 
         const formData = new FormData(e.target);
+        
         const income = parseFloat(formData.get("income")) || 0;
         const expenses = parseFloat(formData.get("expenses")) || 0;
 
@@ -74,10 +75,29 @@ export default function Overview({ className = "" }) {
         }, 0);
     };
 
+    const [sortOption, setSortOption] = useState("");
+
+    const handleSortChange = (e) => {
+        const option = e.target.value;
+        setSortOption(option);
+    
+        let sortedTransactions = [...transactions];
+    
+        if (option === "Most Expenses") {
+            sortedTransactions.sort((a, b) => b.expenses - a.expenses);
+        } else if (option === "Newest") {
+            sortedTransactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+        } else if (option === "Oldest") {
+            sortedTransactions.sort((a, b) => new Date(a.date) - new Date(b.date));
+        }
+    
+        setTransactions(sortedTransactions);
+    };
+    
+
     return (
         <section className="w-full flex flex-col gap-2 grow">
             <div className={`grid bg-primary grid-cols-8 min-h-[120px] gap-2 p-2 rounded-lg w-full ${className}`}>
-
                 {/* Income */}
                 <div className="bg-green-200 rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
                     <img className="w-[30%] md:w-[20%]" src="https://img.icons8.com/?size=100&id=0HSNV2HcCX5d&format=png&color=000000" />
@@ -139,16 +159,16 @@ export default function Overview({ className = "" }) {
                                     <input
                                         type="text"
                                         name="category"
-                                        placeholder="Kategori Pengeluaran"
+                                        placeholder="Expenses Category"
                                         className="input input-bordered input-info w-full"
                                         required
                                     />
 
-                                    <input
+                                    <textarea
                                         type="text"
                                         name="description"
-                                        placeholder="Deskripsi Transaksi"
-                                        className="input input-bordered input-info w-full"
+                                        placeholder="Description"
+                                        className=" textarea textarea-info w-full resize-none"
                                         required
                                     />
 
@@ -184,15 +204,30 @@ export default function Overview({ className = "" }) {
             </div>
 
             {/* Table */}
-            <div className="w-full grow h-[240px] ">
+            <div className="w-full h-[250px]  ">
 
+                {/* Table header */}
+                <div className="flex w-full gap-2  items-center p-3 justify-between">
+                    <p className="font-bold badge badge-primary">List of Transactions</p>
+                    <select
+                        value={sortOption}
+                        onChange={handleSortChange}
+                        className="select rounded-full  select-xs select-info w-max">
+                        
+                        <option disabled value={""} selected>Sorting</option>
+                        <option value={'Most Expenses'}>Most Expenses</option>
+                        <option value={'Oldest'}>Oldest</option>
+                        <option value={'Newest'}>Newest</option>
+                    </select>
+                </div>
+                
             <div className="overflow-x-auto h-full">
                 <table className="table  table-zebra table-pin-rows table-pin-cols">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kategori</th>
-                            <th>Deskripsi</th>
+                            <th>Category</th>
+                            <th>Description</th>
                             <th>Income</th>
                             <th>Expenses</th>
                             <th>Date</th>
@@ -210,13 +245,13 @@ export default function Overview({ className = "" }) {
                                 <td>{transaction.date}</td>
                                 <td className="flex gap-1">
                                     <button
-                                        className="btn btn-warning btn-xs"
+                                        className="btn rounded-full btn-primary btn-xs"
                                         onClick={() => handleEditTransaction(index)}
                                     >
                                         Edit
                                     </button>
                                     <button
-                                        className="btn btn-error btn-xs"
+                                        className="btn rounded-full btn-error btn-xs"
                                         onClick={() => handleDeleteTransaction(index)}
                                     >
                                         Delete
