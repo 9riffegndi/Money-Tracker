@@ -33,9 +33,6 @@ export default function Overview({ className = "" }) {
             return;
         }
 
-        // Handle file upload for iconCategory
-        const iconFile = formData.get("iconCategory");
-        const iconCategoryUrl = iconFile ? URL.createObjectURL(iconFile) : '';
 
         const newTransaction = {
             category: formData.get("category"),
@@ -43,7 +40,6 @@ export default function Overview({ className = "" }) {
             income,
             expenses,
             date: formData.get("date"),
-            iconCategory: iconCategoryUrl, // Store the image URL
         };
 
         if (editTransactionIndex !== null) {
@@ -78,7 +74,6 @@ export default function Overview({ className = "" }) {
             form['description'].value = transaction.description;
             form['income'].value = transaction.income;
             form['expenses'].value = transaction.expenses;
-            // form['iconCategory'].value = transaction.iconCategory;
             form['date'].value = transaction.date;
         }, 0);
     };
@@ -100,6 +95,7 @@ export default function Overview({ className = "" }) {
     
         setTransactions(sortedTransactions);
     };
+
 
     return (
         <section className="w-full flex flex-col gap-2 grow">
@@ -196,17 +192,6 @@ export default function Overview({ className = "" }) {
                                             required
                                         />
                                     </div>
-
-                                    <div className="flex rounded-lg border border-secondary flex-col w-full justify-center items-start">
-                                        <p className="bg-secondary w-full font-bold p-2 rounded-t-lg">Icon category expenses</p>
-                                        <input
-                                            type="file"
-                                            name="iconCategory"
-                                            className="p-2"
-                                            required
-                                        />
-                                    </div>
-
                                     <button className="btn w-full btn-primary" type="submit">Save</button>
                                 </form>
                             </div>
@@ -234,28 +219,26 @@ export default function Overview({ className = "" }) {
                 <div className="overflow-x-auto h-full">
                     <table className="table table-zebra table-pin-rows table-pin-cols">
                         <thead>
-                            <tr>
-                                <th>No</th>
-                                <th></th>
-                                <th>Category</th>
-                                <th>Description</th>
-                                <th>Income</th>
-                                <th>Expenses</th>
-                                <th>Date</th>
-                                <th>Action</th>
+                            <tr className="text-center">
+                                <th className="rounded-tl-lg bg-yellow-300">No</th>
+                                <th className="bg-yellow-300">Category</th>
+                                <th className="bg-yellow-300">Description</th>
+                                <th className="bg-yellow-300">Income</th>
+                                <th className="bg-yellow-300">Expenses</th>
+                                <th className="bg-yellow-300">Date</th>
+                                <th className="rounded-tr-lg bg-yellow-300">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="text-center">
                             {transactions.map((transaction, index) => (
                                 <tr key={index}>
                                     <th>{index + 1}</th>
-                                    <td><img className="h-8 rounded-full" src={transaction.iconCategory} alt="icon" /></td>
                                     <td>{transaction.category}</td>
                                     <td>{transaction.description}</td>
                                     <td>{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.income)}</td>
                                     <td>{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.expenses)}</td>
                                     <td>{transaction.date}</td>
-                                    <td className="flex gap-2">
+                                    <td className="flex w-full justify-center gap-2">
                                         <button onClick={() => handleEditTransaction(index)} className="btn btn-xs btn-warning">Edit</button>
                                         <button onClick={() => handleDeleteTransaction(index)} className="btn btn-xs btn-error">Delete</button>
                                     </td>
@@ -268,3 +251,4 @@ export default function Overview({ className = "" }) {
         </section>
     );
 }
+
