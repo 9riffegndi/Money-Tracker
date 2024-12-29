@@ -62,8 +62,8 @@ export default function Records() {
             </div>
 
             <div className=" text-secondary-content w-full p-1 min-h-[100px] bg-primary border border-primary rounded-lg flex-col flex gap-2 justify-start items-start">
-                <p>With CashFlow, Take Charge of Your Money and Achieve Your Dreams</p>
                 <p className="text-md md:text-[1.5rem] font-extrabold">Ready to take control of your finances today?</p>
+                <p>With <span className="font-extrabold">CashFlow</span>, Take Charge of Your Money and Achieve Your Dreams</p>
             </div>
 
             <Overview />

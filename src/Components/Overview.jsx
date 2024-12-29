@@ -100,7 +100,7 @@ export default function Overview({ className = "" }) {
             <div className={`grid bg-primary grid-cols-8 min-h-[120px] gap-2 p-2 rounded-lg w-full ${className}`}>
                 {/* Income */}
                 <div className="bg-green-200 rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
-                    <img className="w-[30%] md:w-[20%]" src="https://img.icons8.com/?size=100&id=0HSNV2HcCX5d&format=png&color=000000" />
+                    <img className="w-[30%] md:w-[20%]" src="https://cdn.iconscout.com/icon/premium/png-512-thumb/income-1474500-1249736.png?f=webp&w=512" />
                     <div className=" flex flex-col items-center text-center justify-center">
                         <p className="font-bold hidden xs:block ">Income</p>
                         <pre className="w-[90px] whitespace-pre-wrap break-words">
@@ -113,7 +113,7 @@ export default function Overview({ className = "" }) {
 
                 {/* Expenses */}
                 <div className="bg-red-200 rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
-                    <img className="w-[30%] md:w-[20%]" src="https://img.icons8.com/?size=100&id=YdRQgN6J6iTc&format=png&color=000000" />
+                    <img className="w-[30%] md:w-[20%]" src="https://cdn.iconscout.com/icon/premium/png-512-thumb/expenses-6192559-5150646.png?f=webp&w=512" />
                     <div className="flex flex-col items-center text-center justify-center">
                         <p className="font-bold hidden xs:block ">Expenses</p>
                         <pre className="w-[90px] whitespace-pre-wrap break-words">
@@ -126,7 +126,7 @@ export default function Overview({ className = "" }) {
 
                 {/* Total balance */}
                 <div className="bg-blue-200 rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
-                    <img className="w-[30%] md:w-[20%]" src="https://img.icons8.com/?size=100&id=vt8jJ2tM5yNU&format=png&color=000000" />
+                    <img className="w-[30%] md:w-[20%]" src="https://cdn.iconscout.com/icon/premium/png-512-thumb/money-bag-rupiah-1754554-1491544.png?f=webp&w=512" />
                     <div className="flex flex-col items-center text-center justify-center">
                         <p className="font-bold hidden xs:block ">Saving</p>
                         <pre className="w-[90px] whitespace-pre-wrap break-words">
