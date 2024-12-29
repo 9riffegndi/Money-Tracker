@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function Overview({ className = "" }) {
     const [transactions, setTransactions] = useState([]);
@@ -95,6 +96,8 @@ export default function Overview({ className = "" }) {
     
         setTransactions(sortedTransactions);
     };
+
+
 
 
     return (
@@ -230,20 +233,25 @@ export default function Overview({ className = "" }) {
                             </tr>
                         </thead>
                         <tbody className="text-center">
-                            {transactions.map((transaction, index) => (
-                                <tr key={index}>
-                                    <th>{index + 1}</th>
-                                    <td className="badge badge-md rounded-full badge-secondary">{transaction.category}</td>
-                                    <td>{transaction.description}</td>
-                                    <td className="text-success">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.income)}</td>
-                                    <td className="text-error">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.expenses)}</td>
-                                    <td>{transaction.date}</td>
-                                    <td className="flex w-full justify-center gap-2">
-                                        <button onClick={() => handleEditTransaction(index)} className="btn btn-xs btn-warning">Edit</button>
-                                        <button onClick={() => handleDeleteTransaction(index)} className="btn btn-xs btn-error">Delete</button>
-                                    </td>
-                                </tr>
-                            ))}
+                            {transactions.length > 0 ? (
+                                transactions.map((transaction, index) => (
+                                    <tr key={index}>
+                                        <th>{index + 1}</th>
+                                        <td className="badge badge-md rounded-full badge-secondary">{transaction.category}</td>
+                                        <td>{transaction.description}</td>
+                                        <td className="text-success">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.income)}</td>
+                                        <td className="text-error">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.expenses)}</td>
+                                        <td>{transaction.date}</td>
+                                        <td className="flex w-full justify-center gap-2">
+                                            <button onClick={() => handleEditTransaction(index)} className="btn btn-xs btn-warning">Edit</button>
+                                            <button onClick={() => handleDeleteTransaction(index)} className="btn btn-xs btn-error">Delete</button>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>                                    
+                                    <td colSpan="7">No transactions found</td></tr>
+                            )}
                         </tbody>
                     </table>
                 </div>

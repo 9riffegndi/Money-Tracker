@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function History({ className = "" }) {
 
@@ -105,6 +106,17 @@ export default function History({ className = "" }) {
         setTransactions(sortedTransactions);
     };
 
+    if (transactions.length === 0) {
+        return (
+            <div className="p-2 flex h-screen w-full">
+                <p className="badge badge-primary">History</p>
+                <div className="flex flex-col gap-2 items-center justify-center h-full w-full">
+                    <p className="text-2xl font-bold">No transactions found</p>
+                    <Link to="/" className="btn btn-primary">Go to Records</Link>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <section className="w-full flex flex-col gap-2 p-2 grow">
