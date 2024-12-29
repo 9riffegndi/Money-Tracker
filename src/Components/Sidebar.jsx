@@ -13,21 +13,21 @@ export default function Sidebar({ className='' }) {
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-                <ul className="menu bg-secondary text-base-100 rounded-r-xl   h-screen   p-0 w-64 ">
-                    <div className="flex p-2 gap-2 justify-start bg-secondary text-base-100 rounded-tr-xl border-b-2 items-center">
+                <ul className="menu bg-primary text-base-content rounded-r-xl   h-screen   p-0 w-64 ">
+                    <div className="flex p-2 gap-2 justify-start bg-primary rounded-tr-xl border-b-2 items-center">
                         <LogoApp className="w-[100px]"/>
                         <p className="font-bold">Cash Flow </p>
                     </div>
                     {/* Sidebar content here */}
-                    <Link className="p-3 flex gap-2 items-center hover:bg-base-300  hover:pl-11   delay-100  transition-all ease-linear " to="/">
-                        <img className="w-[30px]" src="https://img.icons8.com/?size=100&id=37930&format=png&color=000000"  />
+                    <Link className="p-3 flex gap-2 items-center hover:bg-primary  hover:pl-11   delay-100  transition-all ease-linear " to="/">
+                        <img className=" w-[30px]" src="https://img.icons8.com/?size=100&id=37930&format=png&color=000000"  />
                         <p>Records</p>
                     </Link>
-                    <Link className="p-3  flex gap-2 items-center hover:bg-base-300  hover:pl-11   delay-100  transition-all ease-linear " to="/analytics">
+                    <Link className="p-3  flex gap-2 items-center hover:bg-primary  hover:pl-11   delay-100  transition-all ease-linear " to="/analytics">
                         <img className="w-[30px]" src="https://img.icons8.com/?size=100&id=15&format=png&color=000000" />
                         <p>Analytics</p>
                     </Link>
-                    <Link className="p-3 flex gap-2 items-center hover:bg-base-300  hover:pl-11  delay-100  transition-all ease-linear " to="/history">
+                    <Link className="p-3 flex gap-2 items-center hover:bg-primary  hover:pl-11  delay-100  transition-all ease-linear " to="/history">
                         <img className="w-[30px]" src="https://img.icons8.com/?size=100&id=58761&format=png&color=000000"  />
                         <p>History</p>
                     </Link>

@@ -101,7 +101,7 @@ export default function Overview({ className = "" }) {
         <section className="w-full flex flex-col gap-2 grow">
             <div className={`grid bg-primary grid-cols-8 min-h-[120px] gap-2 p-2 rounded-lg w-full ${className}`}>
                 {/* Income */}
-                <div className="bg-green-200 rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
+                <div className="bg-success rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
                     <img className="w-[30%] md:w-[20%]" src="https://cdn.iconscout.com/icon/premium/png-512-thumb/income-1474500-1249736.png?f=webp&w=512" />
                     <div className="flex flex-col items-center text-center justify-center">
                         <p className="font-bold hidden xs:block">Income</p>
@@ -114,7 +114,7 @@ export default function Overview({ className = "" }) {
                 </div>
 
                 {/* Expenses */}
-                <div className="bg-red-200 rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
+                <div className="bg-error rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
                     <img className="w-[30%] md:w-[20%]" src="https://cdn.iconscout.com/icon/premium/png-512-thumb/expenses-6192559-5150646.png?f=webp&w=512" />
                     <div className="flex flex-col items-center text-center justify-center">
                         <p className="font-bold hidden xs:block">Expenses</p>
@@ -127,7 +127,7 @@ export default function Overview({ className = "" }) {
                 </div>
 
                 {/* Total balance */}
-                <div className="bg-blue-200 rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
+                <div className="bg-info rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
                     <img className="w-[30%] md:w-[20%]" src="https://cdn.iconscout.com/icon/premium/png-512-thumb/money-bag-rupiah-1754554-1491544.png?f=webp&w=512" />
                     <div className="flex flex-col items-center text-center justify-center">
                         <p className="font-bold hidden xs:block">Saving</p>
@@ -140,7 +140,7 @@ export default function Overview({ className = "" }) {
                 </div>
                 
                 {/* Add transaction */}
-                <div className="bg-yellow-200 rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
+                <div className="bg-warning rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
                     <button className="btn btn-circle btn-ghost absolute mb-0 xs:mb-8" onClick={() => document.getElementById('my_modal_4').showModal()}>
                         <img src="https://img.icons8.com/?size=100&id=1501&format=png&color=000000" />
                         <p className="font-bold hidden xs:block">ADD</p>
@@ -152,7 +152,7 @@ export default function Overview({ className = "" }) {
                             <div className="modal-action flex flex-col gap-2">
                                 <form className="flex w-full justify-between items-center" method="dialog">
                                     <p className="font-bold ml-3">Add Transaction</p>
-                                    <button className="btn btn-circle text-white btn-error">
+                                    <button className="btn btn-circle btn-error">
                                         <img className="w-8" src="https://img.icons8.com/?size=100&id=vu5kHwGC4PNb&format=png&color=FFFFFF" />
                                     </button>
                                 </form>
@@ -219,24 +219,24 @@ export default function Overview({ className = "" }) {
                 <div className="overflow-x-auto h-full">
                     <table className="table table-zebra table-pin-rows table-pin-cols">
                         <thead>
-                            <tr className="text-center">
-                                <th className="rounded-tl-lg bg-yellow-300">No</th>
-                                <th className="bg-yellow-300">Category</th>
-                                <th className="bg-yellow-300">Description</th>
-                                <th className="bg-yellow-300">Income</th>
-                                <th className="bg-yellow-300">Expenses</th>
-                                <th className="bg-yellow-300">Date</th>
-                                <th className="rounded-tr-lg bg-yellow-300">Action</th>
+                        <tr className="text-center">
+                                <th className="rounded-tl-lg bg-base-300 text-base-content">No</th>
+                                <th className="bg-base-300 text-base-content">Category</th>
+                                <th className="bg-base-300 text-base-content">Description</th>
+                                <th className="bg-base-300 text-base-content">Income</th>
+                                <th className="bg-base-300 text-base-content">Expenses</th>
+                                <th className="bg-base-300 text-base-content">Date</th>
+                                <th className="rounded-tr-lg bg-base-300 text-base-content">Action</th>
                             </tr>
                         </thead>
                         <tbody className="text-center">
                             {transactions.map((transaction, index) => (
                                 <tr key={index}>
                                     <th>{index + 1}</th>
-                                    <td>{transaction.category}</td>
+                                    <td className="badge badge-md rounded-full badge-secondary">{transaction.category}</td>
                                     <td>{transaction.description}</td>
-                                    <td>{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.income)}</td>
-                                    <td>{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.expenses)}</td>
+                                    <td className="text-success">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.income)}</td>
+                                    <td className="text-error">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.expenses)}</td>
                                     <td>{transaction.date}</td>
                                     <td className="flex w-full justify-center gap-2">
                                         <button onClick={() => handleEditTransaction(index)} className="btn btn-xs btn-warning">Edit</button>
