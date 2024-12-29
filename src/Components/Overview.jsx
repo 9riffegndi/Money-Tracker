@@ -1,8 +1,10 @@
+
 import { useState, useEffect } from "react";
 
 export default function Overview({ className = "" }) {
     const [transactions, setTransactions] = useState([]);
     const [editTransactionIndex, setEditTransactionIndex] = useState(null);
+    const [sortOption, setSortOption] = useState("");
 
     // Load transactions from localStorage on component mount
     useEffect(() => {
@@ -31,12 +33,17 @@ export default function Overview({ className = "" }) {
             return;
         }
 
+        // Handle file upload for iconCategory
+        const iconFile = formData.get("iconCategory");
+        const iconCategoryUrl = iconFile ? URL.createObjectURL(iconFile) : '';
+
         const newTransaction = {
             category: formData.get("category"),
             description: formData.get("description"),
             income,
             expenses,
             date: formData.get("date"),
+            iconCategory: iconCategoryUrl, // Store the image URL
         };
 
         if (editTransactionIndex !== null) {
@@ -71,12 +78,12 @@ export default function Overview({ className = "" }) {
             form['description'].value = transaction.description;
             form['income'].value = transaction.income;
             form['expenses'].value = transaction.expenses;
+            form['iconCategory'].value = transaction.iconCategory;
             form['date'].value = transaction.date;
         }, 0);
     };
 
-    const [sortOption, setSortOption] = useState("");
-
+    // Handle sorting
     const handleSortChange = (e) => {
         const option = e.target.value;
         setSortOption(option);
@@ -93,7 +100,6 @@ export default function Overview({ className = "" }) {
     
         setTransactions(sortedTransactions);
     };
-    
 
     return (
         <section className="w-full flex flex-col gap-2 grow">
@@ -101,8 +107,8 @@ export default function Overview({ className = "" }) {
                 {/* Income */}
                 <div className="bg-green-200 rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
                     <img className="w-[30%] md:w-[20%]" src="https://cdn.iconscout.com/icon/premium/png-512-thumb/income-1474500-1249736.png?f=webp&w=512" />
-                    <div className=" flex flex-col items-center text-center justify-center">
-                        <p className="font-bold hidden xs:block ">Income</p>
+                    <div className="flex flex-col items-center text-center justify-center">
+                        <p className="font-bold hidden xs:block">Income</p>
                         <pre className="w-[90px] whitespace-pre-wrap break-words">
                             {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(
                                 transactions.reduce((acc, t) => acc + t.income, 0)
@@ -115,7 +121,7 @@ export default function Overview({ className = "" }) {
                 <div className="bg-red-200 rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
                     <img className="w-[30%] md:w-[20%]" src="https://cdn.iconscout.com/icon/premium/png-512-thumb/expenses-6192559-5150646.png?f=webp&w=512" />
                     <div className="flex flex-col items-center text-center justify-center">
-                        <p className="font-bold hidden xs:block ">Expenses</p>
+                        <p className="font-bold hidden xs:block">Expenses</p>
                         <pre className="w-[90px] whitespace-pre-wrap break-words">
                             {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(
                                 transactions.reduce((acc, t) => acc + t.expenses, 0)
@@ -128,7 +134,7 @@ export default function Overview({ className = "" }) {
                 <div className="bg-blue-200 rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
                     <img className="w-[30%] md:w-[20%]" src="https://cdn.iconscout.com/icon/premium/png-512-thumb/money-bag-rupiah-1754554-1491544.png?f=webp&w=512" />
                     <div className="flex flex-col items-center text-center justify-center">
-                        <p className="font-bold hidden xs:block ">Saving</p>
+                        <p className="font-bold hidden xs:block">Saving</p>
                         <pre className="w-[90px] whitespace-pre-wrap break-words">
                             {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(
                                 transactions.reduce((acc, t) => acc + t.income - t.expenses, 0)
@@ -141,7 +147,7 @@ export default function Overview({ className = "" }) {
                 <div className="bg-yellow-200 rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
                     <button className="btn btn-circle btn-ghost absolute mb-0 xs:mb-8" onClick={() => document.getElementById('my_modal_4').showModal()}>
                         <img src="https://img.icons8.com/?size=100&id=1501&format=png&color=000000" />
-                        <p className="font-bold hidden xs:block ">ADD</p>
+                        <p className="font-bold hidden xs:block">ADD</p>
                     </button>
 
                     {/* Modal input */}
@@ -149,7 +155,7 @@ export default function Overview({ className = "" }) {
                         <div className="modal-box">
                             <div className="modal-action flex flex-col gap-2">
                                 <form className="flex w-full justify-between items-center" method="dialog">
-                                    <p className="font-bold ml-3">Tambahkan Transaksi</p>
+                                    <p className="font-bold ml-3">Add Transaction</p>
                                     <button className="btn btn-circle text-white btn-error">
                                         <img className="w-8" src="https://img.icons8.com/?size=100&id=vu5kHwGC4PNb&format=png&color=FFFFFF" />
                                     </button>
@@ -163,15 +169,13 @@ export default function Overview({ className = "" }) {
                                         className="input input-bordered input-info w-full"
                                         required
                                     />
-
                                     <textarea
                                         type="text"
                                         name="description"
                                         placeholder="Description"
-                                        className=" textarea textarea-info w-full resize-none"
+                                        className="textarea textarea-info w-full resize-none"
                                         required
                                     />
-
                                     <div className="w-full flex items-center gap-2">
                                         <input
                                             type="number"
@@ -179,18 +183,26 @@ export default function Overview({ className = "" }) {
                                             placeholder="Income"
                                             className="input input-bordered input-info w-full"
                                         />
-
                                         <input
                                             type="number"
                                             name="expenses"
                                             placeholder="Expenses"
                                             className="input input-bordered input-info w-full"
                                         />
-
                                         <input
                                             type="date"
                                             name="date"
                                             className="input input-bordered input-info w-full"
+                                            required
+                                        />
+                                    </div>
+
+                                    <div className="flex rounded-lg border border-secondary flex-col w-full justify-center items-start">
+                                        <p className="bg-secondary w-full font-bold p-2 rounded-t-lg">Icon category expenses</p>
+                                        <input
+                                            type="file"
+                                            name="iconCategory"
+                                            className="p-2"
                                             required
                                         />
                                     </div>
@@ -204,66 +216,55 @@ export default function Overview({ className = "" }) {
             </div>
 
             {/* Table */}
-            <div className="w-full h-[250px]  ">
-
+            <div className="w-full h-[250px]">
                 {/* Table header */}
-                <div className="flex w-full gap-2  items-center p-3 justify-between">
+                <div className="flex w-full gap-2 items-center p-3 justify-between">
                     <p className="font-bold badge badge-primary">List of Transactions</p>
                     <select
                         value={sortOption}
                         onChange={handleSortChange}
-                        className="select rounded-full  select-xs select-info w-max">
-                        
-                        <option disabled value={""} selected>Sorting</option>
+                        className="select rounded-full select-xs select-info w-max">
+                        <option disabled value={""}>Sorting</option>
                         <option value={'Most Expenses'}>Most Expenses</option>
                         <option value={'Newest'}>Newest</option>
                         <option value={'Oldest'}>Oldest</option>
                     </select>
                 </div>
                 
-            <div className="overflow-x-auto h-full">
-                <table className="table  table-zebra table-pin-rows table-pin-cols">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Category</th>
-                            <th>Description</th>
-                            <th>Income</th>
-                            <th>Expenses</th>
-                            <th>Date</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {transactions.map((transaction, index) => (
-                            <tr key={index}>
-                                <th>{index + 1}</th>
-                                <td>{transaction.category}</td>
-                                <td>{transaction.description}</td>
-                                <td className="text-success " >{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.income)}</td>
-                                <td className="text-error ">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.expenses)}</td>
-                                <td>{transaction.date}</td>
-                                <td className="flex gap-1">
-                                    <button
-                                        className="btn rounded-full btn-primary btn-xs"
-                                        onClick={() => handleEditTransaction(index)}
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        className="btn rounded-full btn-error btn-xs"
-                                        onClick={() => handleDeleteTransaction(index)}
-                                    >
-                                        Delete
-                                    </button>
-                                </td>
+                <div className="overflow-x-auto h-full">
+                    <table className="table table-zebra table-pin-rows table-pin-cols">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Type</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Income</th>
+                                <th>Expenses</th>
+                                <th>Date</th>
+                                <th>Action</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {transactions.map((transaction, index) => (
+                                <tr key={index}>
+                                    <th>{index + 1}</th>
+                                    <td><img className="w-8 rounded-full" src={transaction.iconCategory} alt="icon" /></td>
+                                    <td>{transaction.category}</td>
+                                    <td>{transaction.description}</td>
+                                    <td>{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.income)}</td>
+                                    <td>{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.expenses)}</td>
+                                    <td>{transaction.date}</td>
+                                    <td>
+                                        <button onClick={() => handleEditTransaction(index)} className="btn btn-xs btn-warning">Edit</button>
+                                        <button onClick={() => handleDeleteTransaction(index)} className="btn btn-xs btn-error">Delete</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            </div>
-
         </section>
     );
 }
