@@ -101,7 +101,7 @@ export default function Overview({ className = "" }) {
                 {/* Income */}
                 <div className="bg-green-200 rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
                     <img className="w-[30%] md:w-[20%]" src="https://img.icons8.com/?size=100&id=0HSNV2HcCX5d&format=png&color=000000" />
-                    <div className="flex flex-col items-center text-center justify-center">
+                    <div className=" flex flex-col items-center text-center justify-center">
                         <p className="font-bold hidden xs:block ">Income</p>
                         <pre className="w-[90px] whitespace-pre-wrap break-words">
                             {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(
@@ -216,8 +216,8 @@ export default function Overview({ className = "" }) {
                         
                         <option disabled value={""} selected>Sorting</option>
                         <option value={'Most Expenses'}>Most Expenses</option>
-                        <option value={'Oldest'}>Oldest</option>
                         <option value={'Newest'}>Newest</option>
+                        <option value={'Oldest'}>Oldest</option>
                     </select>
                 </div>
                 
@@ -240,8 +240,8 @@ export default function Overview({ className = "" }) {
                                 <th>{index + 1}</th>
                                 <td>{transaction.category}</td>
                                 <td>{transaction.description}</td>
-                                <td>{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.income)}</td>
-                                <td>{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.expenses)}</td>
+                                <td className="text-success " >{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.income)}</td>
+                                <td className="text-error ">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.expenses)}</td>
                                 <td>{transaction.date}</td>
                                 <td className="flex gap-1">
                                     <button
