@@ -31,7 +31,6 @@ export default function Analytics() {
 
             <div className=" grid grid-cols-12 h-screen  w-full">
                 <div className="w-full col-span-12">
-                    {/* <Bar className="w-full" data={data} /> */}
                 </div>
             </div>
 
