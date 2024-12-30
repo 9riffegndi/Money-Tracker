@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import necessary components
 import Sidebar from './Components/Sidebar.jsx';
 
-// Sample pages for the routes
 import Records from './Components/Records.jsx';
 import Analytics from './Components/Analytics.jsx';
 import History from './Components/History.jsx';

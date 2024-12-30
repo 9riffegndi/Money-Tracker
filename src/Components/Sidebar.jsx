@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import LogoApp from "./LogoApp";
+import dataJSON from "../data.json";
+
 export default function Sidebar({ className='' }) {
     return (
         <div className="flex z-30   justify-between items-center  w-full md:w-max">
@@ -21,15 +23,15 @@ export default function Sidebar({ className='' }) {
                     {/* Sidebar content here */}
                     <Link className="p-3 flex gap-2 items-center hover:bg-primary  hover:pl-11   delay-100  transition-all ease-linear " to="/">
                         <img className=" w-[30px]" src="https://img.icons8.com/?size=100&id=37930&format=png&color=000000"  />
-                        <p>Records</p>
+                        <p key={dataJSON.sidebarItems[0].id}>{dataJSON.sidebarItems[0].name}</p>
+
                     </Link>
                     <Link className="p-3  flex gap-2 items-center hover:bg-primary  hover:pl-11   delay-100  transition-all ease-linear " to="/analytics">
                         <img className="w-[30px]" src="https://img.icons8.com/?size=100&id=15&format=png&color=000000" />
-                        <p>Analytics</p>
-                    </Link>
+                        <p key={dataJSON.sidebarItems[1].id}>{dataJSON.sidebarItems[1].name}</p>                    </Link>
                     <Link className="p-3 flex gap-2 items-center hover:bg-primary  hover:pl-11  delay-100  transition-all ease-linear " to="/history">
                         <img className="w-[30px]" src="https://img.icons8.com/?size=100&id=58761&format=png&color=000000"  />
-                        <p>History</p>
+                        <p key={dataJSON.sidebarItems[2].id}>{dataJSON.sidebarItems[2].name}</p>
                     </Link>
                 </ul>
             </div>

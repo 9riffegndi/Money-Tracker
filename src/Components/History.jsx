@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+
 export default function History({ className = "" }) {
 
     const [theme ] = useState(localStorage.getItem("theme") || "light");
@@ -193,7 +194,7 @@ export default function History({ className = "" }) {
             </div>
 
             {/* Table */}
-            <div className="w-full grow h-[400px]">
+            <div className="w-full grow h-[350px]">
                 {/* Table header */}
                 <div className="flex w-full gap-2 items-center p-3 justify-between">
                     <p className="font-bold badge badge-primary">List of Transactions</p>

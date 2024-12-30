@@ -1,0 +1,25 @@
+{
+    "aboutCashFlow": [
+      {
+        "id": 1,
+        "appName": "Cash Flow",
+        "Slogan": "With CashFlow, Take Charge of Your Money and Achieve Your Dreams",
+        "Headline": "Ready to take control of your finances today?"
+      }
+    ],
+    "sidebarItems": [
+      {
+        "id": 1,
+        "name": "Records"
+      },
+      {
+        "id": 2,
+        "name": "Analytics"
+      },
+      {
+        "id": 3,
+        "name": "History"
+      }
+    ]
+  }
+  

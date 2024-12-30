@@ -1,6 +1,5 @@
 
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 export default function Overview({ className = "" }) {
     const [transactions, setTransactions] = useState([]);
