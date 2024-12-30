@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-
-// Register the necessary Chart.js components
-
 export default function Analytics() {
     const transaction = localStorage.getItem("transactions");
     
@@ -34,9 +31,10 @@ export default function Analytics() {
 
             <div className=" grid grid-cols-12 h-screen  w-full">
                 <div className="w-full col-span-12">
+                    {/* <Bar className="w-full" data={data} /> */}
                 </div>
             </div>
 
         </div>
     );
-}
+}   
