@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import BarChart from "../Components/barChart";
 
 export default function Analytics() {
     const transaction = localStorage.getItem("transactions");
@@ -25,12 +26,14 @@ export default function Analytics() {
         );
     }
 
+
     return (
         <div className="flex flex-col p-2 gap-2  w-full h-screen">
             <p className="badge badge-primary">Analytics</p>
 
             <div className=" grid grid-cols-12 h-screen  w-full">
-                <div className="w-full col-span-12">
+                <div className="w-full overflow-auto  col-span-12">
+                    <BarChart />
                 </div>
             </div>
 
