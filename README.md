@@ -1,70 +1,170 @@
-# Getting Started with Create React App
+# Cash Flow - Web Aplikasi Manajemen Keuangan
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplikasi Cash Flow adalah web aplikasi SPA (Single Page Application) untuk memonitor arus kas pribadi, termasuk pendapatan (income), pengeluaran (expenses), dan tabungan (saving). Dengan fitur CRUD (Create, Read, Update, Delete) dan visualisasi data menggunakan grafik, aplikasi ini dirancang untuk memberikan gambaran jelas tentang kondisi keuangan Anda.
 
-## Available Scripts
+## Tech Stack
 
-In the project directory, you can run:
+- **React JS**: Untuk membangun antarmuka pengguna interaktif dan dinamis.
+- **Local Storage**: Menyimpan data transaksi secara lokal pada browser.
+- **Tailwind CSS + DaisyUI**: Untuk styling dan komponen UI yang responsif.
+- **Recharts**: Untuk visualisasi data dengan grafik bar.
+- **React Router DOM**: Untuk routing antar halaman di dalam aplikasi SPA.
 
-### `npm start`
+## Fitur
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 1. **CRUD Transaksi**
+- Menambah transaksi pendapatan dan pengeluaran.
+- Mengedit atau menghapus transaksi.
+- Menampilkan total pendapatan (income), pengeluaran (expense), dan tabungan (saving).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 2. **Fitur Sorting**
+- Sorting berdasarkan **Most Expenses**: Menampilkan transaksi pengeluaran terbesar.
+- Sorting berdasarkan **Tanggal Sekarang**: Menampilkan transaksi yang terjadi hari ini.
+- Sorting berdasarkan **Tertua**: Menampilkan transaksi yang paling lama.
 
-### `npm test`
+### 3. **Login & Register**
+- Pengguna dapat mendaftar dan login untuk mengakses data pribadi mereka.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 4. **Analytic Chart**
+- Grafik bar yang menunjukkan visualisasi pendapatan (income) dan pengeluaran (expense) menggunakan Recharts.
 
-### `npm run build`
+### 5. **Single Page Application (SPA)**
+- Tidak ada reload halaman, semua interaksi dilakukan di dalam satu halaman.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Instalasi
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Persyaratan Sistem
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Pastikan Anda telah menginstal **Node.js** dan **npm** (Node Package Manager) di komputer Anda. Jika belum, Anda dapat mengunduhnya di [sini](https://nodejs.org/).
 
-### `npm run eject`
+### Cara Menjalankan Aplikasi
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. **Clone repositori ini**:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    ```bash
+    git clone link repo ini
+    cd cash-flow
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. **Install dependencies**:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    Pastikan Anda berada di dalam direktori proyek dan jalankan perintah berikut untuk menginstal dependensi:
 
-## Learn More
+    ```bash
+    npm install
+    ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. **Menjalankan aplikasi**:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    Setelah dependensi terinstal, jalankan aplikasi dengan perintah berikut:
 
-### Code Splitting
+    ```bash
+    npm start
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    Aplikasi akan berjalan di `http://localhost:3000`.
 
-### Analyzing the Bundle Size
+4. **Menjalankan aplikasi untuk pengujian**:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+    Jika Anda ingin menjalankan pengujian unit (misalnya, untuk komponen), jalankan perintah berikut:
 
-### Making a Progressive Web App
+    ```bash
+    npm test
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+    Untuk melihat laporan pengujian dan metrik lainnya:
 
-### Advanced Configuration
+    ```bash
+    npm run report
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Struktur Folder
 
-### Deployment
+```
+cash-flow/
+├── public/
+│   └── index.html
+├── src/
+│   ├── App.css
+│   ├── App.jsx
+│   ├── App.test.js
+│   ├── chartist.css
+│   ├── data.json
+│   ├── index.js
+│   ├── logo.svg
+│   ├── reportWebVitals.js
+│   ├── setupTests.js
+│   ├── Components/
+│   │   ├── Analytics.jsx
+│   │   ├── BarChart.jsx
+│   │   ├── History.jsx
+│   │   ├── LogoApp.jsx
+│   │   ├── Overview.jsx
+│   │   ├── Records.jsx
+│   │   └── Sidebar.jsx
+│   ├── Layouts/
+│   │   └── LayoutsAuth.jsx
+│   └── Pages/
+│       ├── Home.jsx
+│       ├── Login.jsx
+│       └── Register.jsx
+├── tailwind.config.js
+├── package.json
+└── README.md
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Deskripsi Struktur Folder
 
-### `npm run build` fails to minify
+- **`src/`**: Direktori utama untuk semua file sumber aplikasi.
+  - **`App.css`**: File CSS global untuk aplikasi.
+  - **`App.jsx`**: Komponen utama aplikasi.
+  - **`App.test.js`**: File untuk pengujian unit komponen utama.
+  - **`chartist.css`**: File CSS untuk styling chart (jika menggunakan chartist).
+  - **`data.json`**: File yang berisi data awal (misalnya, transaksi keuangan).
+  - **`index.js`**: Titik masuk utama untuk aplikasi React.
+  - **`logo.svg`**: Logo aplikasi.
+  - **`reportWebVitals.js`**: Untuk melaporkan performa aplikasi.
+  - **`setupTests.js`**: Untuk konfigurasi pengujian unit.
+  
+  - **`Components/`**: Direktori untuk komponen UI reusable.
+    - **`Analytics.jsx`**: Menampilkan grafik analitik.
+    - **`BarChart.jsx`**: Komponen untuk grafik bar.
+    - **`History.jsx`**: Menampilkan riwayat transaksi.
+    - **`LogoApp.jsx`**: Komponen logo aplikasi.
+    - **`Overview.jsx`**: Komponen untuk ringkasan keuangan.
+    - **`Records.jsx`**: Menampilkan catatan transaksi.
+    - **`Sidebar.jsx`**: Sidebar navigasi.
+  
+  - **`Layouts/`**: Direktori untuk layout yang digunakan di aplikasi.
+    - **`LayoutsAuth.jsx`**: Layout untuk halaman login dan register.
+  
+  - **`Pages/`**: Direktori untuk halaman-halaman aplikasi.
+    - **`Home.jsx`**: Halaman utama aplikasi yang menampilkan transaksi dan grafik.
+    - **`Login.jsx`**: Halaman login pengguna.
+    - **`Register.jsx`**: Halaman registrasi pengguna baru.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Deskripsi Fitur
+
+### **CRUD Transaksi**
+Pada halaman utama (`Home.jsx`), pengguna dapat menambah transaksi melalui form yang telah disediakan. Data transaksi akan disimpan dalam Local Storage dan dapat diperbarui atau dihapus sesuai kebutuhan.
+
+### **Sorting Transaksi**
+- **Most Expenses**: Mengurutkan transaksi berdasarkan pengeluaran terbesar.
+- **Tanggal Sekarang**: Menampilkan transaksi yang terjadi hari ini.
+- **Tertua**: Menampilkan transaksi berdasarkan tanggal paling lama.
+
+### **Analytic Chart**
+Pengguna dapat melihat grafik pendapatan dan pengeluaran dalam bentuk **bar chart** menggunakan **Recharts**.
+
+### **Login & Register**
+- Pengguna dapat mendaftar dengan membuat akun baru, atau login menggunakan akun yang sudah ada untuk mengakses data keuangan mereka.
+
+## Teknologi yang Digunakan
+
+- **React JS**: Library JavaScript untuk membangun antarmuka pengguna.
+- **Local Storage**: Menyimpan data transaksi secara lokal pada browser.
+- **Tailwind CSS**: Framework CSS yang mempermudah styling.
+- **DaisyUI**: Komponen UI berbasis Tailwind CSS untuk elemen-elemen yang lebih cepat dibuat.
+- **Recharts**: Untuk visualisasi data dalam bentuk grafik.
+- **React Router DOM**: Untuk mengatur routing dalam aplikasi SPA.
+

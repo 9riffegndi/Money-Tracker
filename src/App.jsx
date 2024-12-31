@@ -40,15 +40,11 @@ export default function App() {
           
           {/* Routing aplikasi */}
           <Routes>
-            {/* Halaman login, jika sudah terautentikasi, arahkan ke /records */}
-            <Route path="/login" element={isAuthenticated ? <Navigate to="/records" /> : <Login /> } />
-            {/* Halaman register, jika sudah terautentikasi, arahkan ke /records */}
-            <Route path="/register" element={isAuthenticated ? <Navigate to="/records" /> : <Register /> } />
 
             {/* Jika sudah terautentikasi, tampilkan halaman-halaman berikut */}
             {isAuthenticated ? (
               <>
-                <Route path="/" element={<Home />} />
+              <Route path="/" element={<Home />} />
                 <Route path="/records" element={<Records />} />
                 <Route path="/analytics" element={<Analytics />} />
                 <Route path="/history" element={<History />} />
@@ -61,8 +57,8 @@ export default function App() {
             )}
 
             {/* Halaman login dan register tidak boleh diakses jika sudah terautentikasi */}
-            <Route path="/login"    element={isAuthenticated ? <Navigate to="/" /> : <Login /> } />
-            <Route path="/register" element={isAuthenticated ? <Navigate to="/" /> : <Register /> } />
+            <Route path="/login"    element={isAuthenticated ? <Navigate to="/records" /> : <Login /> } />
+            <Route path="/register" element={isAuthenticated ? <Navigate to="/records" /> : <Register /> } />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>
