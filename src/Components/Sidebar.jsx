@@ -104,7 +104,7 @@ export default function Sidebar({ className='' }) {
                                         {userData ? (
                                             <p className="font-bold text-xs md:text-xl">{userData.name}</p>
                                         ) : null}
-                                        <button onClick={handleLogout} className="btn w-full btn-secondary">Logout</button>
+                                        <button onClick={handleLogout} className="btn btn-error w-full">Logout</button>
                                     </div>
                                 </ul>
                 ) : (
