@@ -9,3 +9,7 @@
 
 
 
+
+.box-shadow {
+    filter: drop-shadow(2px 4px 102px rgb(255, 252, 194)); /* Horizontal offset, vertical offset, blur radius, color */
+}

@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import dataJSON from "../data.json";
+
+
 
 export default function Home() {
     const [theme] = useState(localStorage.getItem("theme") || "light");
@@ -10,11 +13,18 @@ export default function Home() {
     }, [theme]);
 
     return (
-        <div>
-            <h1 className="text-3xl text-secondary font-bold underline w-full h-screen">
-                Home
-            </h1>
-        </div>
+        <>
+                {dataJSON.HomeWelcome.map((item) => (
+                    <div className="w-full h-screen justify-center p-2 grid grid-cols-12   place-items-center " key={item.id}>
+                        <div className= "col-span-12 md:col-span-6">
+                            <p className="font-extrabold text-6xl">{item.appName}</p>
+                            <p>{item.Headline}</p>
+                            <p>{item.Slogan}</p>
+                        </div>
+                        <img className="col-span-12 md:col-span-6 box-shadow" src={item.logo} alt={item.appName} />
+                    </div>
+                ))}
+        </>
     )
     
 }

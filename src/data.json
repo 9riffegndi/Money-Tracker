@@ -13,7 +13,8 @@
         "id": 1,
         "appName": "Cash Flow",
         "Slogan": "With CashFlow, Take Charge of Your Money and Achieve Your Dreams",
-        "Headline": "Ready to take control of your finances today?"
+        "Headline": "Ready to take control of your finances today?",
+        "logo":"../CashFlowLogo.png"
       }
     ],
     "sidebarItems": [
