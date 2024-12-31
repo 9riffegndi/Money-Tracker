@@ -203,7 +203,7 @@ export default function Overview({ className = "" }) {
             </div>
 
             {/* Table */}
-            <div className="w-full h-[250px]">
+            <div className="w-full h-[240px]">
                 {/* Table header */}
                 <div className="flex w-full gap-2 items-center p-3 justify-between">
                     <p className="font-bold badge badge-sm xs:badge-md badge-primary">List of Transactions</p>
