@@ -162,6 +162,7 @@ Pengguna dapat melihat grafik pendapatan dan pengeluaran dalam bentuk **bar char
 ## Teknologi yang Digunakan
 
 - **React JS**: Library JavaScript untuk membangun antarmuka pengguna.
+- **File JSON**: Menyimpan data minoritas, seperti text button, sidebar, nama colom tabel dan lainnya.
 - **Local Storage**: Menyimpan data transaksi secara lokal pada browser.
 - **Tailwind CSS**: Framework CSS yang mempermudah styling.
 - **DaisyUI**: Komponen UI berbasis Tailwind CSS untuk elemen-elemen yang lebih cepat dibuat.
