@@ -2,8 +2,20 @@ import React, { useEffect, useState } from "react";
 import Overview from "./Overview";
 
 export default function Records() {
-    const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [userData, setUserData] = useState(null);
+    
+    useEffect(() => {
+        const dataUsers = localStorage.getItem('dataRegisterUsers');
+        if (dataUsers) {
+            const parsedData = JSON.parse(dataUsers); // Parse the data
+            setIsAuthenticated(true);
+            setUserData(parsedData); // Store the parsed data
+        }
+    }, []);
+    
 
+    const [theme, setTheme] = useState(localStorage.getItem("theme") || "business");
     useEffect(() => {
         // Set the theme on the <html> tag whenever the theme changes
         document.documentElement.setAttribute("data-theme", theme);
@@ -26,6 +38,7 @@ export default function Records() {
                     <option value="" disabled>Themes</option> {/* Remove 'selected' and use 'value' here */}
                     <option value="light">Light</option>
                     <option value="black">Black</option>
+                    <option defaultValue={"business"} value="business">Business</option>
                     <option value="dark">Dark</option>
                     <option value="cupcake">Cupcake</option>
                     <option value="bumblebee">Bumblebee</option>
@@ -45,7 +58,6 @@ export default function Records() {
                     <option value="dracula">Dracula</option>
                     <option value="cmyk">CMYK</option>
                     <option value="autumn">Autumn</option>
-                    <option value="business">Business</option>
                     <option value="acid">Acid</option>
                     <option value="lemonade">Lemonade</option>
                     <option value="night">Night</option>
@@ -56,6 +68,10 @@ export default function Records() {
             </div>
 
             <div className="bg-primary w-full p-2 h-max md:min-h-[120px]  rounded-lg flex-col flex gap-2 justify-start items-start">
+            {isAuthenticated && userData ? (
+                <p className="text-xs md:text-2xl">Hi {userData.name}</p>
+            ) : null}
+
                 <p className="text-xs md:text-2xl font-extrabold">Ready to take control of your finances today?</p>
                 <p className="text-xs md:text-lg">With <span className="font-extrabold">CashFlow</span>, Take Charge of Your Money and Achieve Your Dreams</p>
             </div>

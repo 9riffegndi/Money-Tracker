@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function Login() {
     const navigate = useNavigate();
-    const [theme] = useState(localStorage.getItem("theme") || "light");
+    const [theme] = useState(localStorage.getItem("theme") || "Business");
 
     useEffect(() => {
         // Set the theme on the <html> tag whenever the theme changes

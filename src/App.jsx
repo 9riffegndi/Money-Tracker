@@ -11,6 +11,15 @@ import Login from './Pages/Login.jsx';
 import Register from './Pages/Register.jsx';
 
 export default function App() {
+  const [theme] = useState(localStorage.getItem("theme") || "Business");
+
+  useEffect(() => {
+    // Set the theme on the <html> tag whenever the theme changes
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme); // Save the selected theme to localStorage
+  }, [theme]);
+
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {

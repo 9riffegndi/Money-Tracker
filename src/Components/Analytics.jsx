@@ -5,7 +5,7 @@ import BarChart from "../Components/barChart";
 export default function Analytics() {
     const transaction = localStorage.getItem("transactions");
     
-    const [theme ] = useState(localStorage.getItem("theme") || "light");
+    const [theme ] = useState(localStorage.getItem("theme") || "business");
     
         useEffect(() => {
             // Set the theme on the <html> tag whenever the theme changes
