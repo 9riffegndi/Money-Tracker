@@ -1,73 +1,76 @@
 
+
 import { useState, useEffect } from "react";
 
 export default function Overview({ className = "" }) {
+    // Mendefinisikan state untuk menyimpan data transaksi
     const [transactions, setTransactions] = useState([]);
-    const [editTransactionIndex, setEditTransactionIndex] = useState(null);
-    const [sortOption, setSortOption] = useState("");
+    const [editTransactionIndex, setEditTransactionIndex] = useState(null); // Menyimpan index transaksi yang sedang diedit
+    const [sortOption, setSortOption] = useState(""); // Menyimpan pilihan urutan transaksi
 
-    // Load transactions from localStorage on component mount
+    // Mengambil data transaksi dari localStorage saat komponen pertama kali dipasang
     useEffect(() => {
         const savedTransactions = JSON.parse(localStorage.getItem("transactions")) || [];
         setTransactions(savedTransactions);
     }, []);
 
-    // Save transactions to localStorage whenever they are updated
+    // Menyimpan data transaksi ke localStorage setiap kali transaksi diperbarui
     useEffect(() => {
         if (transactions.length > 0) {
             localStorage.setItem("transactions", JSON.stringify(transactions));
         }
     }, [transactions]);
 
-    // Handle form submission
+    // Menangani pengiriman form untuk menambah atau memperbarui transaksi
     const handleAddTransaction = (e) => {
         e.preventDefault();
 
         const formData = new FormData(e.target);
         
-        const income = parseFloat(formData.get("income")) || 0;
-        const expenses = parseFloat(formData.get("expenses")) || 0;
+        const income = parseFloat(formData.get("income")) || 0; // Mengambil nilai income dari form dan mengkonversinya ke angka
+        const expenses = parseFloat(formData.get("expenses")) || 0; // Mengambil nilai expenses dari form dan mengkonversinya ke angka
 
+        // Mengecek apakah income atau expenses bernilai negatif
         if (income < 0 || expenses < 0) {
             alert("Income dan Expenses tidak boleh bernilai negatif.");
             return;
         }
 
-
         const newTransaction = {
-            category: formData.get("category"),
-            description: formData.get("description"),
-            income,
-            expenses,
-            date: formData.get("date"),
+            category: formData.get("category"), // Kategori transaksi
+            description: formData.get("description"), // Deskripsi transaksi
+            income, // Nilai pendapatan
+            expenses, // Nilai pengeluaran
+            date: formData.get("date"), // Tanggal transaksi
         };
 
+        // Jika sedang mengedit transaksi, perbarui transaksi yang ada, jika tidak, tambahkan transaksi baru
         if (editTransactionIndex !== null) {
             const updatedTransactions = [...transactions];
             updatedTransactions[editTransactionIndex] = newTransaction;
             setTransactions(updatedTransactions);
-            setEditTransactionIndex(null); // Reset the edit state
+            setEditTransactionIndex(null); // Reset state edit
         } else {
             setTransactions([...transactions, newTransaction]);
         }
 
-        e.target.reset(); // Reset form fields
-        document.getElementById('my_modal_4').close(); // Close modal
+        e.target.reset(); // Reset form setelah transaksi disimpan
+        document.getElementById('my_modal_4').close(); // Menutup modal
     };
 
-    // Handle delete transaction
+    // Menangani penghapusan transaksi
     const handleDeleteTransaction = (index) => {
         const updatedTransactions = transactions.filter((_, i) => i !== index);
         setTransactions(updatedTransactions);
     };
 
-    // Handle edit transaction
+    // Menangani pengeditan transaksi
     const handleEditTransaction = (index) => {
         const transaction = transactions[index];
-        setEditTransactionIndex(index); // Set the index of the transaction to edit
+        setEditTransactionIndex(index); // Set index transaksi yang akan diedit
         document.getElementById('my_modal_4').showModal();
 
-        // Pre-fill the form with the transaction data
+        // Mengisi form dengan data transaksi yang akan diedit
         setTimeout(() => {
             const form = document.forms['transactionForm'];
             form['category'].value = transaction.category;
@@ -78,30 +81,28 @@ export default function Overview({ className = "" }) {
         }, 0);
     };
 
-    // Handle sorting
+    // Menangani perubahan pilihan sorting
     const handleSortChange = (e) => {
         const option = e.target.value;
         setSortOption(option);
     
         let sortedTransactions = [...transactions];
     
+        // Melakukan sorting berdasarkan opsi yang dipilih
         if (option === "Most Expenses") {
-            sortedTransactions.sort((a, b) => b.expenses - a.expenses);
+            sortedTransactions.sort((a, b) => b.expenses - a.expenses); // Sort berdasarkan pengeluaran terbesar
         } else if (option === "Newest") {
-            sortedTransactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+            sortedTransactions.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort berdasarkan transaksi terbaru
         } else if (option === "Oldest") {
-            sortedTransactions.sort((a, b) => new Date(a.date) - new Date(b.date));
+            sortedTransactions.sort((a, b) => new Date(a.date) - new Date(b.date)); // Sort berdasarkan transaksi terlama
         }
     
         setTransactions(sortedTransactions);
     };
 
-
-
-
     return (
         <section className="w-full flex flex-col gap-2 grow">
-            <div className={`grid bg-primary grid-cols-8 min-h-[120px]  gap-2 p-2 rounded-lg w-full ${className}`}>
+            <div className={`grid bg-primary grid-cols-8 min-h-[120px] gap-2 p-2 rounded-lg w-full ${className}`}>
                 {/* Income */}
                 <div className="bg-success rounded-lg items-center gap-1 justify-center col-span-4 md:col-span-2 flex flex-col md:flex-row">
                     <img className="w-[15%] md:w-[20%]" src="https://cdn.iconscout.com/icon/premium/png-512-thumb/income-1474500-1249736.png?f=webp&w=512" />
@@ -228,29 +229,28 @@ export default function Overview({ className = "" }) {
                                 <th className="bg-base-300 text-base-content">Income</th>
                                 <th className="bg-base-300 text-base-content">Expenses</th>
                                 <th className="bg-base-300 text-base-content">Date</th>
-                                <th className="rounded-tr-lg bg-base-300 text-base-content">Action</th>
+                                <th className="rounded-tr-lg bg-base-300 text-base-content">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="text-center">
-                            {transactions.length > 0 ? (
-                                transactions.map((transaction, index) => (
-                                    <tr key={index}>
-                                        <th>{index + 1}</th>
-                                        <td className="badge badge-md rounded-full badge-secondary">{transaction.category}</td>
-                                        <td>{transaction.description}</td>
-                                        <td className="text-success">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.income)}</td>
-                                        <td className="text-error">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.expenses)}</td>
-                                        <td>{transaction.date}</td>
-                                        <td className="flex w-full justify-center gap-2">
-                                            <button onClick={() => handleEditTransaction(index)} className="btn btn-xs btn-warning">Edit</button>
-                                            <button onClick={() => handleDeleteTransaction(index)} className="btn btn-xs btn-error">Delete</button>
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>                                    
-                                    <td colSpan="7">No transactions found</td></tr>
-                            )}
+                        <tbody>
+                            {transactions.map((transaction, index) => (
+                                <tr key={index}>
+                                    <td className="text-center">{index + 1}</td>
+                                    <td>{transaction.category}</td>
+                                    <td>{transaction.description}</td>
+                                    <td className="text-center">
+                                        {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.income)}
+                                    </td>
+                                    <td className="text-center">
+                                        {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.expenses)}
+                                    </td>
+                                    <td className="text-center">{transaction.date}</td>
+                                    <td className="flex gap-2 justify-center">
+                                        <button className="btn btn-xs btn-warning" onClick={() => handleEditTransaction(index)}>Edit</button>
+                                        <button className="btn btn-xs btn-error" onClick={() => handleDeleteTransaction(index)}>Delete</button>
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
@@ -258,4 +258,3 @@ export default function Overview({ className = "" }) {
         </section>
     );
 }
-

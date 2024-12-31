@@ -3,33 +3,37 @@ import LogoApp from "./LogoApp";
 import dataJSON from "../data.json";
 import { useState, useEffect } from "react";
 
-
 export default function Sidebar({ className='' }) {
+    // State untuk mengecek apakah pengguna sudah terautentikasi
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    // State untuk menyimpan data pengguna
     const [userData, setUserData] = useState(null);
     
     useEffect(() => {
+        // Mengambil data pengguna yang terdaftar dari localStorage
         const dataUsers = localStorage.getItem('dataRegisterUsers');
         if (dataUsers) {
-            const parsedData = JSON.parse(dataUsers); // Parse the data
-            setIsAuthenticated(true);
-            setUserData(parsedData); // Store the parsed data
+            const parsedData = JSON.parse(dataUsers); // Parsing data
+            setIsAuthenticated(true); // Menandakan bahwa pengguna sudah terautentikasi
+            setUserData(parsedData); // Menyimpan data pengguna yang telah diparsing
         }
     }, []);
 
+    // Fungsi untuk logout pengguna
     const handleLogout = () => {
-        setIsAuthenticated(false);
-        setUserData(null);
-        localStorage.removeItem('dataRegisterUsers');
-        window.location.reload();
+        setIsAuthenticated(false); // Set status autentikasi menjadi false
+        setUserData(null); // Menghapus data pengguna
+        localStorage.removeItem('dataRegisterUsers'); // Menghapus data pengguna dari localStorage
+        window.location.reload(); // Memuat ulang halaman setelah logout
     };
 
+    // State untuk tema yang digunakan
     const [theme] = useState(localStorage.getItem("theme") || "Business");
 
     useEffect(() => {
-        // Set the theme on the <html> tag whenever the theme changes
+        // Mengatur tema pada tag <html> setiap kali tema berubah
         document.documentElement.setAttribute("data-theme", theme);
-        localStorage.setItem("theme", theme); // Save the selected theme to localStorage
+        localStorage.setItem("theme", theme); // Menyimpan tema yang dipilih di localStorage
     }, [theme]);
 
     return (
@@ -37,7 +41,7 @@ export default function Sidebar({ className='' }) {
             <div className={`drawer lg:drawer-open   ${className}`}>
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content ">
-                {/* Page content here */}
+                {/* Konten halaman */}
                 <label htmlFor="my-drawer-2" className="btn  rounded-none rounded-br-lg  btn-primary drawer-button lg:hidden">
                     <img width="20" src="https://img.icons8.com/?size=100&id=3096&format=png&color=000000" />
                 </label>
@@ -51,7 +55,7 @@ export default function Sidebar({ className='' }) {
                                         <LogoApp className="w-[100px]"/>
                                         <p className="font-bold">Cash Flow </p>
                                     </div>
-                                        {/* Sidebar content here */}
+                                        {/* Konten sidebar untuk pengguna yang sudah login */}
                                         <Link 
                                             className="p-3 flex gap-2 items-center hover:bg-primary hover:pl-11 delay-100 transition-all ease-linear"
                                             to="/"
@@ -104,6 +108,7 @@ export default function Sidebar({ className='' }) {
                                         {userData ? (
                                             <p className="font-bold text-xs md:text-xl">{userData.name}</p>
                                         ) : null}
+                                        {/* Tombol logout */}
                                         <button onClick={handleLogout} className="btn btn-error w-full">Logout</button>
                                     </div>
                                 </ul>
@@ -128,11 +133,13 @@ export default function Sidebar({ className='' }) {
                     </div>
                     <div className="flex flex-col gap-2 w-full border p-2 rounded-lg items-center">
                         <p className="text-2xl font-bold">Login or Register</p>
+                        {/* Link ke halaman login */}
                         <Link 
                             className="w-full"
                             to="/login">
                             <button className="btn w-full btn-secondary">Login</button>
                         </Link>
+                        {/* Link ke halaman register */}
                         <Link 
                             className="w-full"
                             to="/register">
@@ -145,7 +152,5 @@ export default function Sidebar({ className='' }) {
             </div>
             <p className="font-bold block sm:hidden p-2 ">Hallo world</p>
         </div>
-
     )
-    
 }

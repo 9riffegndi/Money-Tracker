@@ -1,42 +1,39 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-
 export default function History({ className = "" }) {
-
-    const [theme ] = useState(localStorage.getItem("theme") || "business");
+    // State untuk tema, dengan nilai default dari localStorage atau "business"
+    const [theme] = useState(localStorage.getItem("theme") || "business");
 
     useEffect(() => {
-        // Set the theme on the <html> tag whenever the theme changes
+        // Mengatur tema pada elemen <html> saat tema berubah
         document.documentElement.setAttribute("data-theme", theme);
-        localStorage.setItem("theme", theme); // Save the selected theme to localStorage
+        localStorage.setItem("theme", theme); // Menyimpan tema ke localStorage
     }, [theme]);
 
-
+    // State untuk menyimpan transaksi, indeks transaksi yang sedang diedit, dan opsi pengurutan
     const [transactions, setTransactions] = useState([]);
     const [editTransactionIndex, setEditTransactionIndex] = useState(null);
     const [sortOption, setSortOption] = useState("");
 
-    // Load transactions from localStorage on component mount
+    // Mengambil data transaksi dari localStorage saat komponen dimuat
     useEffect(() => {
         const savedTransactions = JSON.parse(localStorage.getItem("transactions")) || [];
         setTransactions(savedTransactions);
     }, []);
 
-    // Save transactions to localStorage whenever they are updated
+    // Menyimpan transaksi ke localStorage setiap kali ada perubahan pada data transaksi
     useEffect(() => {
         if (transactions.length > 0) {
             localStorage.setItem("transactions", JSON.stringify(transactions));
         }
     }, [transactions]);
 
-    // Handle form submission
+    // Fungsi untuk menambah atau memperbarui transaksi
     const handleAddTransaction = (e) => {
         e.preventDefault();
 
         const formData = new FormData(e.target);
-        
         const income = parseFloat(formData.get("income")) || 0;
         const expenses = parseFloat(formData.get("expenses")) || 0;
 
@@ -54,31 +51,33 @@ export default function History({ className = "" }) {
         };
 
         if (editTransactionIndex !== null) {
+            // Mengedit transaksi yang sudah ada
             const updatedTransactions = [...transactions];
             updatedTransactions[editTransactionIndex] = newTransaction;
             setTransactions(updatedTransactions);
-            setEditTransactionIndex(null); // Reset the edit state
+            setEditTransactionIndex(null);
         } else {
+            // Menambah transaksi baru
             setTransactions([...transactions, newTransaction]);
         }
 
-        e.target.reset(); // Reset form fields
-        document.getElementById('my_modal_4').close(); // Close modal
+        e.target.reset(); // Mengosongkan form
+        document.getElementById('my_modal_4').close(); // Menutup modal
     };
 
-    // Handle delete transaction
+    // Fungsi untuk menghapus transaksi berdasarkan indeks
     const handleDeleteTransaction = (index) => {
         const updatedTransactions = transactions.filter((_, i) => i !== index);
         setTransactions(updatedTransactions);
     };
 
-    // Handle edit transaction
+    // Fungsi untuk mengedit transaksi
     const handleEditTransaction = (index) => {
         const transaction = transactions[index];
-        setEditTransactionIndex(index); // Set the index of the transaction to edit
+        setEditTransactionIndex(index); // Menyimpan indeks transaksi yang akan diedit
         document.getElementById('my_modal_4').showModal();
 
-        // Pre-fill the form with the transaction data
+        // Mengisi form dengan data transaksi yang dipilih
         setTimeout(() => {
             const form = document.forms['transactionForm'];
             form['category'].value = transaction.category;
@@ -89,13 +88,13 @@ export default function History({ className = "" }) {
         }, 0);
     };
 
-    // Handle sorting
+    // Fungsi untuk mengurutkan transaksi
     const handleSortChange = (e) => {
         const option = e.target.value;
         setSortOption(option);
-    
+
         let sortedTransactions = [...transactions];
-    
+
         if (option === "Most Expenses") {
             sortedTransactions.sort((a, b) => b.expenses - a.expenses);
         } else if (option === "Newest") {
@@ -103,10 +102,11 @@ export default function History({ className = "" }) {
         } else if (option === "Oldest") {
             sortedTransactions.sort((a, b) => new Date(a.date) - new Date(b.date));
         }
-    
+
         setTransactions(sortedTransactions);
     };
 
+    // Jika tidak ada transaksi, tampilkan pesan
     if (transactions.length === 0) {
         return (
             <div className="p-2 flex h-screen w-full">
@@ -119,26 +119,19 @@ export default function History({ className = "" }) {
         );
     }
 
+    // Komponen utama untuk menampilkan transaksi
     return (
         <section className="w-full flex flex-col gap-2 p-2 grow">
             <p className="badge badge-primary">History</p>
             <div className={`grid grid-cols-8 min-h-[120px] gap-2 bg-primary p-2 rounded-lg w-full ${className}`}>
-            
-            
-            <div className="bg-info rounded-lg items-center gap-1 justify-center col-span-6 flex flex-col md:flex-row">
-                <h1 className="font-bold text-2xl">History</h1>
+                <div className="bg-info rounded-lg items-center gap-1 justify-center col-span-6 flex flex-col md:flex-row">
+                    <h1 className="font-bold text-2xl">History</h1>
                 </div>
-
-                {/* Add transaction */}
                 <div className="bg-warning rounded-lg items-center gap-1 justify-center col-span-2 flex flex-col md:flex-row">
                     <button className="btn btn-circle btn-ghost absolute mb-0 xs:mb-8" onClick={() => document.getElementById('my_modal_4').showModal()}>
                         <img src="https://img.icons8.com/?size=100&id=1501&format=png&color=000000" />
                         <p className="font-bold hidden xs:block">ADD</p>
                     </button>
-
-
-
-                    {/* Modal input */}
                     <dialog id="my_modal_4" className="modal">
                         <div className="modal-box">
                             <div className="modal-action flex flex-col gap-2">
@@ -148,7 +141,6 @@ export default function History({ className = "" }) {
                                         <img className="w-8" src="https://img.icons8.com/?size=100&id=vu5kHwGC4PNb&format=png&color=FFFFFF" />
                                     </button>
                                 </form>
-
                                 <form name="transactionForm" className="flex flex-col items-center gap-2" onSubmit={handleAddTransaction}>
                                     <input
                                         type="text"
@@ -184,7 +176,6 @@ export default function History({ className = "" }) {
                                             required
                                         />
                                     </div>
-
                                     <button className="btn w-full btn-primary" type="submit">Save</button>
                                 </form>
                             </div>
@@ -193,9 +184,8 @@ export default function History({ className = "" }) {
                 </div>
             </div>
 
-            {/* Table */}
+            {/* Tabel transaksi */}
             <div className="w-full grow h-[350px]">
-                {/* Table header */}
                 <div className="flex w-full gap-2 items-center p-3 justify-between">
                     <p className="font-bold badge badge-primary">List of Transactions</p>
                     <select
@@ -208,7 +198,6 @@ export default function History({ className = "" }) {
                         <option value={'Oldest'}>Oldest</option>
                     </select>
                 </div>
-                
                 <div className="overflow-x-auto h-full">
                     <table className="table table-zebra table-pin-rows table-pin-cols">
                         <thead>
@@ -221,7 +210,6 @@ export default function History({ className = "" }) {
                                 <th className="bg-base-300 text-base-content">Date</th>
                                 <th className="rounded-tr-lg bg-base-300 text-base-content">Action</th>
                             </tr>
-
                         </thead>
                         <tbody className="text-center">
                             {transactions.map((transaction, index) => (
@@ -245,4 +233,3 @@ export default function History({ className = "" }) {
         </section>
     );
 }
-

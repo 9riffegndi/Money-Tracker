@@ -4,46 +4,55 @@ import LayoutsAuth from "../Layouts/LayoutsAuth";
 import { Link } from "react-router-dom";
 
 export default function Login() {
+    // Menggunakan hook useNavigate untuk navigasi setelah login
     const navigate = useNavigate();
+
+    // State untuk menyimpan tema yang dipilih, nilai default adalah "Business"
     const [theme] = useState(localStorage.getItem("theme") || "Business");
 
     useEffect(() => {
-        // Set the theme on the <html> tag whenever the theme changes
+        // Mengubah atribut data-theme pada <html> tag sesuai dengan tema yang dipilih
         document.documentElement.setAttribute("data-theme", theme);
-        localStorage.setItem("theme", theme); // Save the selected theme to localStorage
+        // Menyimpan tema yang dipilih ke localStorage
+        localStorage.setItem("theme", theme);
     }, [theme]);
 
+    // State untuk menyimpan data login (email dan password)
     const [login, setLogin] = useState({
         email: "",
         password: "",
     });
 
+    // State untuk menyimpan pesan error jika login gagal
     const [error, setError] = useState("");
 
+    // Fungsi untuk menangani login
     const handleLogin = (e) => {
-        e.preventDefault();
-        const savedData = localStorage.getItem("dataRegisterUsers");
-
+        e.preventDefault(); // Mencegah form dari pengiriman default
+        const savedData = localStorage.getItem("dataRegisterUsers"); // Mengambil data pengguna terdaftar dari localStorage
         
         if (savedData) {
-            const savedRegister = JSON.parse(savedData);
+            const savedRegister = JSON.parse(savedData); // Mengurai data pengguna terdaftar
+            
+            // Memeriksa apakah email dan password cocok dengan yang ada di localStorage
             if (
                 savedRegister.email === login.email &&
                 savedRegister.password === login.password
             ) {
                 console.log("Login successful!");
-                setError("");
-                // Redirect to home page
-                navigate("/");  // Ensure this redirects properly
-                window.location.reload();
+                setError(""); // Reset pesan error
+                // Navigasi ke halaman home setelah login berhasil
+                navigate("/");  // Pastikan navigasi berjalan dengan benar
+                window.location.reload(); // Memuat ulang halaman setelah login
             } else {
-                setError("Invalid email or password");
+                setError("Invalid email or password"); // Menampilkan error jika email atau password salah
             }
         } else {
-            setError("No registered user found");
+            setError("No registered user found"); // Menampilkan error jika tidak ada pengguna terdaftar
         }
     };
 
+    // Fungsi untuk menangani perubahan input form
     const handleChange = (e) => {
         setLogin({ ...login, [e.target.name]: e.target.value });
     };
@@ -70,8 +79,9 @@ export default function Login() {
                         className="input input-bordered w-full"
                     />
                     <button type="submit" className="btn btn-primary w-full">Login</button>
-                    {error && <p className="text-red-500 text-center">{error}</p>}
+                    {error && <p className="text-red-500 text-center">{error}</p>} {/* Menampilkan pesan error jika ada */}
                 </form>
+                {/* Tautan untuk menuju halaman registrasi jika pengguna belum memiliki akun */}
                 <Link to="/register" className="text-center block mt-4">Don't have an account? Register</Link>
             </div>
         </LayoutsAuth>
